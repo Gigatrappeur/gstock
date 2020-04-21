@@ -1,11 +1,5 @@
 import Product from '../model/Product';
 
-// export const locations: Storage[] = [
-// 	{
-// 		id: 
-// 	}
-// ];
-
 export const products:Product[] = [
 	{
 		id: 1,
@@ -15,9 +9,11 @@ export const products:Product[] = [
 		tags: [],
 		description: '',
 		barcode: '123',
-		packaging: 'sachet',
-		unit: 'g',
-		quantity: 50,
+		packaging: {
+			type: 'sachet',
+			unit: 'gramme',
+			quantity: 50
+		},
 		locations: [{
 			id: 1,
 			name: 'Cuisine',
@@ -33,9 +29,11 @@ export const products:Product[] = [
 		tags: [],
 		description: '',
 		barcode: '456',
-		packaging: 'boite',
-		unit: 'g',
-		quantity: 6,
+		packaging: {
+			type: 'boite',
+			unit: 'gramme',
+			quantity: 6
+		},
 		locations: [],
 		photos: []
 	},
@@ -47,9 +45,11 @@ export const products:Product[] = [
 		tags: [],
 		description: '',
 		barcode: '789',
-		packaging: 'sachet',
-		unit: 'g',
-		quantity: 125,
+		packaging: {
+			type: 'sachet',
+			unit: 'gramme',
+			quantity: 125
+		},
 		locations: [{
 			id: 1,
 			name: 'Cuisine',
@@ -66,9 +66,11 @@ export const products:Product[] = [
 		tags: [],
 		description: '',
 		barcode: '134',
-		packaging: 'boite',
-		unit: 'pièce',
-		quantity: 12,
+		packaging: {
+			type: 'boite',
+			unit: 'pièce',
+			quantity: 12
+		},
 		locations: [{
 			id: 1,
 			name: 'Cuisine',
@@ -84,9 +86,11 @@ export const products:Product[] = [
 		tags: [],
 		description: '',
 		barcode: '145',
-		packaging: 'boite',
-		unit: 'g',
-		quantity: 250,
+		packaging: {
+			type: 'boite',
+			unit: 'gramme',
+			quantity: 250
+		},
 		locations: [{
 			id: 1,
 			name: 'Cuisine',
@@ -102,9 +106,11 @@ export const products:Product[] = [
 		tags: [],
 		description: '',
 		barcode: '852',
-		packaging: 'brique',
-		unit: 'l',
-		quantity: 1,
+		packaging: {
+			type: 'brique',
+			unit: 'litre',
+			quantity: 1
+		},
 		locations: [{
 				id: 1,
 				name: 'Cuisine',

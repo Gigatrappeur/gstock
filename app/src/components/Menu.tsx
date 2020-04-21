@@ -79,14 +79,14 @@ export default ({state, onChange, children}: MenuProps) => {
 			{state =>
 				<>
 					<div
-						className="fixed inset-y-0 left-0 w-2"
+						className="fixed z-20 inset-y-0 left-0 w-2"
 						onTouchStart={startOpenTouchClose}
 						onTouchMove={moveTouchClose}
 						onTouchEnd={endMouseClose}>
 					</div>
 					<div
 						data-state={state}
-						className={'fixed inset-0 bg-black ease-in-out'  + (isMouseActive ? '' : ' transition-opacity duration-500')}
+						className={'fixed z-20 inset-0 bg-black ease-in-out'  + (isMouseActive ? '' : ' transition-opacity duration-500')}
 						style={{opacity: state.startsWith('enter') ? opacity : 0, right: state == 'exited' ? 'auto' : 0}}
 						onClick={closeMenu}>
 					</div>
@@ -100,7 +100,7 @@ export default ({state, onChange, children}: MenuProps) => {
 						onTouchMove={moveTouchClose}
 						onTouchEnd={endMouseClose}
 
-						className={'select-none flex flex-col bg-white shadow-md fixed inset-y-0 left-0 w-10/12 z-20 ease-in-out' + (isMouseActive ? '' : ' transition-transform duration-500')}
+						className={'flex flex-col fixed z-20 inset-y-0 left-0 w-10/12 bg-white shadow-md select-none ease-in-out' + (isMouseActive ? '' : ' transition-transform duration-500')}
 						style={{transform: 'translateX(' + (state.startsWith('exit') ? '-100%' : 'calc(' + navWidth + 'px - 100%)') + ')'}}
 						>
 						{children}

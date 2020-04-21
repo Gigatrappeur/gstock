@@ -2,7 +2,7 @@ import React from 'react';
 
 // jeux de données
 import { products } from '../data';
-import Product from '../model/Product';
+import Product, { getReadablePackaging } from '../model/Product';
 
 export default ({searchValue}: {searchValue?: string}) => {
 	
@@ -29,7 +29,7 @@ const Item = (p: Product) => {
 				<div>
 					{p.description}	
 				</div>
-				<div className="text-gray-600 text-sm">{p.packaging} de {p.quantity} {p.unit}</div>
+				<div className="text-gray-600 text-sm">{getReadablePackaging(p.packaging)}</div>
 			</div>
 		</li>
 	);
