@@ -6,6 +6,7 @@ import Product, { getReadablePackaging } from '../model/Product';
 import { RouteComponentProps } from 'react-router';
 import ProductView from './ProductView';
 import { NavLink } from 'react-router-dom';
+import Page from '../components/Page';
 
 export default ({match: {params: {id}}}: RouteComponentProps<{id?: string}>) => {
 	const productFiltered = products.filter(p => p.locations.length > 0);
@@ -23,12 +24,16 @@ export default ({match: {params: {id}}}: RouteComponentProps<{id?: string}>) => 
 	}
 	
 	return (
-		<div className="flex h-full relative">
-			<ul className={'overflow-auto' + (id ? '' : ' flex-1' )}>
-				{Object.entries(productByLocations).map(([name, items]) => <LocationView key={name} name={name} products={items} currentId={id} />)}
-			</ul>
-			{id && <ProductView id={id} />}
-		</div>
+		<Page title={id ? 'Fiche Produit' : 'En Stock'} back={id && '/in-stock'}>
+
+			<div className="flex h-full relative">
+				<ul className={'overflow-auto' + (id ? '' : ' flex-1' )}>
+					{Object.entries(productByLocations).map(([name, items]) => <LocationView key={name} name={name} products={items} currentId={id} />)}
+				</ul>
+				{id && <ProductView id={id} />}
+			</div>
+			
+		</Page>
 	)
 }
 

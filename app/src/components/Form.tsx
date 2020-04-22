@@ -1,6 +1,7 @@
 import React from 'react';
 
 interface TextBoxProps {
+	type?: string
 	label?: string
 	helper?: string
 	placeholder?: string
@@ -13,7 +14,7 @@ interface TextBoxProps {
 	onFocus?: React.FocusEventHandler<HTMLInputElement>
 }
 
-export const TextBox = ({label, helper, Icon, iconPosition, hasError, ...props}: TextBoxProps) => {
+export const TextBox = ({type, label, helper, Icon, iconPosition, hasError, ...props}: TextBoxProps) => {
 	return (
 		<div>
 			<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
@@ -21,7 +22,7 @@ export const TextBox = ({label, helper, Icon, iconPosition, hasError, ...props}:
 				<span className="relative block">
 					<input
 						className={'appearance-none block w-full bg-gray-200 text-base border border-gray-200 rounded' + (label ? ' mt-1' : '') + ' py-3 px-4' + (Icon ? ' p' + (iconPosition == 'RIGHT' ? 'r' : 'l') + '-10' : '') +' leading-tight focus:outline-none focus:bg-white ' + (hasError ? 'border-red-500' : 'focus:border-gray-500')}
-						type="text"
+						type={type || 'text'}
 						{...props} />
 					{Icon && <Icon className={'pointer-events-none absolute text-gray-600 top-0 w-4 h-full mx-3' + (iconPosition == 'RIGHT' ? ' right-0' : '')} />}
 				</span>
@@ -29,4 +30,9 @@ export const TextBox = ({label, helper, Icon, iconPosition, hasError, ...props}:
 			{helper && <p className={(hasError ? 'text-red-500' : 'text-gray-600') +' text-xs italic'}>{helper}</p>}
 		</div>
 	);
+}
+
+
+export const Password = (props: TextBoxProps) => {
+	return <TextBox type="password" {...props} />
 }
