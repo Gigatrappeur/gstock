@@ -1,64 +1,90 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 // jeux de données
-import { products } from '../data';
+import { products, storages, categories } from '../data';
 import Product, { getReadablePackaging } from '../model/Product';
 import { RouteComponentProps } from 'react-router';
 import ProductView from './ProductView';
 import { NavLink } from 'react-router-dom';
 import Page from '../components/Page';
+import Filter from '../resources/Filter';
 
-export default ({match: {params: {id}}}: RouteComponentProps<{id?: string}>) => {
+type ProductGroup = 'locations' | 'categories';
+
+export default ({match: {params: {produit, filter}}}: RouteComponentProps<{produit?: string, filter?: ProductGroup}>) => {
+	const [showFilter, setShowFilter] = useState(false);
+
 	const productFiltered = products.filter(p => p.locations.length > 0);
 
-	// gérer un système de tri (par stockage, par catégorie, etc...)
-	let productByLocations: {[k: string]: Product[]} = {};
-	for (let i = 0; i < productFiltered.length; i++) {
-		for (let j = 0; j < productFiltered[i].locations.length; j++) {
-			const nameLocation = productFiltered[i].locations[j].name;
-			if (!(nameLocation in productByLocations)) {
-				productByLocations[nameLocation] = [];
+	let productByFilter: {[k: number]: Product[]} = {};
+	if (filter) {
+		// système de tri (par stockage, par catégorie, etc...)
+		for (let i = 0; i < productFiltered.length; i++) {
+			for (let j = 0; j < productFiltered[i][filter].length; j++) {
+				const idFilter = productFiltered[i][filter][j].id;
+				if (!(idFilter in productByFilter)) {
+					productByFilter[idFilter] = [];
+				}
+				productByFilter[idFilter].push(productFiltered[i]);
 			}
-			productByLocations[nameLocation].push(productFiltered[i]);
 		}
 	}
 	
+	const subHeader = showFilter ? <div>
+			Grouper par 
+			<NavLink className="ml-2 px-2 border border-gray-200 rounded" to="/products-locations" activeClassName="bg-gray-200 text-gray-700">Lieu</NavLink>
+			<NavLink className="ml-2 px-2 border border-gray-200 rounded" to="/products-categories" activeClassName="bg-gray-200 text-gray-700">Catégorie</NavLink>
+			<NavLink className="ml-2 px-2 border border-gray-200 rounded" to="/products" activeClassName="bg-gray-200 text-gray-700">Aucun</NavLink>
+		</div> : undefined;
+	
 	return (
-		<Page title={id ? 'Fiche Produit' : 'En Stock'} back={id && '/in-stock'}>
+		<Page title={produit ? 'Fiche Produit' : 'Stock'} back={produit && '/products'} actions={<Filter height="20" className="mx-2 cursor-pointer" onClick={() => setShowFilter(b => !b)} />} subHeader={subHeader}>
+			
 
 			<div className="flex h-full relative">
-				<ul className={'overflow-auto' + (id ? '' : ' flex-1' )}>
-					{Object.entries(productByLocations).map(([name, items]) => <LocationView key={name} name={name} products={items} currentId={id} />)}
+				<ul className={'overflow-auto' + (produit ? '' : ' flex-1' )}>
+					{filter && Object.entries(productByFilter).map(([id, items]) => <FilterView key={id} id={parseInt(id)} group={filter} products={items} currentId={produit} />)}
+					{!filter && productFiltered.map(p => <Item key={p.id} currentId={produit} {...p} />)}
 				</ul>
-				{id && <ProductView id={id} />}
+				{produit && <ProductView id={produit} />}
 			</div>
 			
 		</Page>
 	)
 }
 
-const LocationView = ({name, products, currentId}: {name: string, products: Product[], currentId?: string}) => 
-	<li className="border-t border-gray-200">
-		<div className="text-sm text-gray-600 font-medium py-1 px-4">
-			{name}
-		</div>
-		<ul>
-			{products.map(p => <Item key={p.id} currentLocation={name} currentId={currentId} {...p} />)}
-		</ul>
-	</li>
+interface Filter {
+	id: number,
+	name: string
+}
 
-const Item = ({currentLocation, currentId, ...p}: {currentLocation: string, currentId?: string} & Product) => {
+
+const FilterView = ({id, group, products, currentId}: {id: number, group: ProductGroup, products: Product[], currentId?: string}) => {
+	const currentFilter: Filter = (group == 'locations' ? storages : categories).find(s => s.id == id)!;
+	return (
+		<li className="border-t border-gray-200">
+			<div className="text-sm text-gray-600 font-medium py-1 px-4">
+				{currentFilter.name}
+			</div>
+			<ul>
+				{products.map(p => <Item key={p.id} filter={currentFilter} group={group} currentId={currentId} {...p} />)}
+			</ul>
+		</li>
+	);
+};
+
+const Item = ({filter, group, currentId, ...p}: {filter?: Filter, group?: ProductGroup, currentId?: string} & Product) => {
 	const liNode = useRef<HTMLLIElement>(null);
 	useEffect(() => {
 		if (currentId == String(p.id))
 			liNode.current?.scrollIntoView();
 	}, []);
 
-	const otherLocations = p.locations.filter(l => l.name != currentLocation);
-	const current = p.locations.find(l => l.name == currentLocation)!;
+	// const otherLocations = p.locations.filter(l => l.name != currentLocation);
+	// const current = p.locations.find(l => l.name == currentLocation)!;
 	return (
 		<li ref={liNode}>
-			<NavLink to={'/in-stock/' + p.id} className="flex py-3 px-4 hover:bg-gray-100" activeClassName="bg-gray-300 hover:bg-gray-300">
+			<NavLink to={'/products' + (group ? '-' + group : '') + '/' + p.id + (filter ? '/' + filter.id : '')} className="flex py-3 px-4 hover:bg-gray-100" activeClassName="bg-gray-300 hover:bg-gray-300">
 				<div className="border border-gray-300 bg-gray-100 rounded w-16 h-16 mr-4">
 
 				</div>
@@ -69,9 +95,8 @@ const Item = ({currentLocation, currentId, ...p}: {currentLocation: string, curr
 					</div>
 					<div className="text-gray-600 text-sm">
 						{getReadablePackaging(p.packaging)}
-						{' '}&ndash; {current.name} : {current.quantity}
-						{otherLocations.length > 0 && <>{' '}({otherLocations.reduce((q, l) => (q ? q + ', ' : '') + l.name + ' : ' + l.quantity, '')})</>}
 						{' '}&ndash; Total : {p.locations.reduce((q, l) => q + l.quantity, 0)}
+						{' '}<i className="text-gray-500">({p.locations.reduce((q, l) => (q ? q + ', ' : '') + l.name + ' : ' + l.quantity, '')})</i>
 					</div>
 				</div>
 			</NavLink>

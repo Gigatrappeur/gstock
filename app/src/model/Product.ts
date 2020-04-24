@@ -1,11 +1,12 @@
 import Location from './Location';
+import Category from './Category';
 
 export default interface Product {
 
 	id: number
 	name: string
 	description: string
-	categories: string[]
+	categories: Category[]
 	tags: []
 	photos: string[]
 

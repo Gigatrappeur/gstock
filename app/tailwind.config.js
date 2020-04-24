@@ -374,7 +374,10 @@ module.exports = {
 			'12': '12',
 		},
 		padding: theme => theme('spacing'),
-		placeholderColor: theme => theme('colors'),
+		placeholderColor: theme => ({
+			...theme('colors'),
+			current: 'currentColor'
+		}),
 		stroke: {
 			current: 'currentColor',
 		},
@@ -543,6 +546,7 @@ module.exports = {
 			'75': '.75',
 			'90': '.9',
 			'95': '.95',
+			'98': '.98',
 			'100': '1',
 			'105': '1.05',
 			'110': '1.1',

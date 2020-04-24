@@ -14,9 +14,11 @@ interface PageProps {
 	title?: string
 	back?: string
 	children?: React.ReactNode
+	subHeader?: React.ReactNode
+	actions?: React.ReactNode
 }
 
-export default ({title, back, children}: PageProps) => {
+export default ({title, back, children, actions, subHeader}: PageProps) => {
 	const [navOpen, setNavOpen] = useState<'opened' | 'closed'>('closed');
 	const [searchOpen, setSearchOpen] = useState<boolean>(false);
 	const [searchValue, setSearchValue] = useState<string>();
@@ -31,10 +33,14 @@ export default ({title, back, children}: PageProps) => {
 				
 				<div className="ml-4 mr-auto">{title}</div>
 				
+				{actions}
 				<Refresh width="20" className="mx-2 cursor-pointer" />
 				<Loupe width="20" className="mx-2 cursor-pointer" onClick={() => setSearchOpen(b => !b)} />
 			</Header>
-			
+			{subHeader && <div className="flex items-center p-2 pt-0 bg-gray-700 text-white">
+				{subHeader}
+			</div>}
+
 			<Menu state={navOpen} onChange={setNavOpen}>
 				<div className="text-white bg-gray-700 p-4 text-2xl">
 					<BoxOpenSolid height="60" className="pb-2" />

@@ -27,7 +27,14 @@ const Main = () => {
 				<Search searchValue={searchValue} />
 			</Route> */}
 			<Route path="/scan-ticket" component={ScanTicket} />
-			<Route path={['/in-stock/:id', '/in-stock', '/']} component={ProductInStock} />
+			<Route path={[
+				'/products/:produit/:filterId',
+				'/products/:produit',
+				'/products',
+				'/products-:filter/:produit/:filterId',
+				'/products-:filter/:produit',
+				'/products-:filter',
+				'/']} component={ProductInStock} />
 			<Route path="*" component={NoMatch} />
 		</Switch>
 	);

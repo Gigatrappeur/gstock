@@ -4,10 +4,11 @@ import Bg1 from '../../resources/bg-1.jpg';
 import Bg2 from '../../resources/bg-2.jpg';
 import Bg3 from '../../resources/bg-3.jpg';
 import BoxOpenSolid from '../../resources/BoxOpenSolid';
-import { TextBox, Password } from '../../components/Form';
+import { TextBox, Password, Button, CheckBox } from '../../components/Form';
 import UserSolid from '../../resources/UserSolid';
 import LockSolid from '../../resources/LockSolid';
 import { AppContext } from '../../AppContextProvider';
+import { NavLink } from 'react-router-dom';
 
 export default () => {
 	const context = useContext(AppContext);
@@ -31,12 +32,18 @@ export default () => {
 					
 					<div className="m-4">
 						<TextBox placeholder="Email" Icon={UserSolid} />
+						{/* appearance-none block w-full text-base border-gray-400 py-3 px-4 pl-10 leading-tight focus:outline-none border-b-2 bg-transparent */}
 					</div>
 					<div className="m-4">
 						<Password placeholder="Mot de passe" Icon={LockSolid} />
 					</div>
+					<div className="m-4 flex justify-between">
+						<CheckBox label="Rester connecté" />
+
+						<NavLink to="/forgot-password">Mot de passe oublié ?</NavLink>
+					</div>
 					<div className="m-4">
-						<button className="border rounded border-gray-400 w-full py-3 px-4 bg-gray-600 outline-none focus:outline-none">Connexion</button>
+						<Button className="w-full">Connexion</Button>
 					</div>
 				</form>
 			</div>

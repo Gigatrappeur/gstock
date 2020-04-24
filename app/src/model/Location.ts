@@ -1,7 +1,6 @@
 
-export default interface Location {
-	id: number
-	name: string
+import Storage from './Storage';
 
+export default interface Location extends Storage {
 	quantity: number
 }
