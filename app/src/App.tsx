@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ScanTicket from './ScanTicket';
-import ProductInStock from './ProductInStock';
+import ProductsPage from './pages/ProductsPage';
 import NoMatch from './components/NoMatch';
 import AppContextProvider, { AppContext } from './AppContextProvider';
 import LoginPage from './pages/LoginPage';
@@ -34,7 +34,7 @@ const Main = () => {
 				'/products-:filter/:produit/:filterId',
 				'/products-:filter/:produit',
 				'/products-:filter',
-				'/']} component={ProductInStock} />
+				'/']} component={ProductsPage} />
 			<Route path="*" component={NoMatch} />
 		</Switch>
 	);

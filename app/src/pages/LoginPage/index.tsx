@@ -10,43 +10,43 @@ import LockSolid from '../../resources/LockSolid';
 import { AppContext } from '../../AppContextProvider';
 import { NavLink } from 'react-router-dom';
 
+const backgroundImages = [Bg1, Bg2, Bg3];
+
 export default () => {
 	const context = useContext(AppContext);
 
 	const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		
+		// TODO query to server
 		context.setUser({email: 'test@test.fr', firstname: 'Test', lastname:'TEST'});
 	};
 
 	return (
-		<div className="text-white ">
-			<div className="fixed inset-0 bg-fixed bg-cover bg-no-repeat bg-center opacity-75" style={{backgroundImage: 'url(' + [Bg1, Bg2, Bg3][Math.floor(Math.random() * 3)] + ')'}}>
+		<div className="relative h-screen flex flex-col lg:flex-row items-center bg-cover bg-no-repeat bg-center" style={{backgroundImage: 'url(' + backgroundImages[Math.floor(Math.random() * backgroundImages.length)] + ')'}}>
+			<div className="text-white m-auto">
+				<BoxOpenSolid width="180" className="pt-8 m-auto" />
+				<div className="text-6xl font-semibold text-center" style={{textShadow: '0 0 20px gray'}}>GStock</div>
 			</div>
-			<div className="relative h-screen flex flex-col items-center">
-				<div className="m-auto">
-					<BoxOpenSolid className="w-64" />
-					<div className="text-6xl font-semibold text-center">GStock</div>
+
+			<form onSubmit={onSubmitHandler} className="w-full p-8 border-t border-gray-300 sm:rounded sm:m-8 sm:w-auto sm:border-0 sm:shadow-xl lg:mx-auto lg:my-0 lg:p-16" style={{backgroundColor: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(8px)'}}>
+				<div className="hidden lg:block text-2xl text-gray-700 m-4 mb-6 text-center">
+					Connexion
 				</div>
-
-				<form onSubmit={onSubmitHandler} className="w-10/12 m-auto">
-					
-					<div className="m-4">
-						<TextBox placeholder="Email" Icon={UserSolid} />
-						{/* appearance-none block w-full text-base border-gray-400 py-3 px-4 pl-10 leading-tight focus:outline-none border-b-2 bg-transparent */}
-					</div>
-					<div className="m-4">
-						<Password placeholder="Mot de passe" Icon={LockSolid} />
-					</div>
-					<div className="m-4 flex justify-between">
-						<CheckBox label="Rester connecté" />
-
-						<NavLink to="/forgot-password">Mot de passe oublié ?</NavLink>
-					</div>
-					<div className="m-4">
-						<Button className="w-full">Connexion</Button>
-					</div>
-				</form>
-			</div>
+				<div className="m-4">
+					<TextBox placeholder="Email" Icon={UserSolid} />
+				</div>
+				<div className="m-4">
+					<Password placeholder="Mot de passe" Icon={LockSolid} />
+				</div>
+				<div className="m-4 flex">
+					<CheckBox label="Rester connecté" className="mr-8" />
+					<NavLink to="/forgot-password" className="text-gray-700 hover:text-black ml-auto text-right">Mot de passe oublié ?</NavLink>
+				</div>
+				<div className="m-4">
+					<Button className="w-full">Connexion</Button>
+				</div>
+			</form>
 		</div>
-	)
+	);
 }

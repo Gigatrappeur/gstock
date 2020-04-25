@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
-import { products } from '../data';
-import { getReadablePackaging } from '../model/Product';
+import { products } from '../../data';
+import { getReadablePackaging } from '../../model/Product';
 
 export default ({id}: {id: string}) => {
 	const divNode = useRef<HTMLDivElement>(null);

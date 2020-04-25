@@ -1,13 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 
 // jeux de données
-import { products, storages, categories } from '../data';
-import Product, { getReadablePackaging } from '../model/Product';
+import { products, storages, categories } from '../../data';
+import Product, { getReadablePackaging } from '../../model/Product';
 import { RouteComponentProps } from 'react-router';
 import ProductView from './ProductView';
 import { NavLink } from 'react-router-dom';
-import Page from '../components/Page';
-import Filter from '../resources/Filter';
+import Page from '../../components/Page';
+import Filter from '../../resources/Filter';
 
 type ProductGroup = 'locations' | 'categories';
 

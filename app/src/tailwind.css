@@ -3,3 +3,8 @@
 @tailwind components;
 
 @tailwind utilities;
+
+
+.not-checked\:bg-none:not(:checked) {
+	background: none !important;
+}

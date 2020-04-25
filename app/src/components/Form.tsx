@@ -44,14 +44,15 @@ export const Password = (props: TextBoxProps) => {
 
 interface CheckBoxProps {
 	label?: string
+
+	className?: string
 }
-export const CheckBox = ({label}: CheckBoxProps) => {
+const CheckIcon = encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" height="10" width="10" stroke="white" fill="none" stroke-width="2"><path d="M1 6 l5 5 l8 -8" /></svg>');
+export const CheckBox = ({label, className}: CheckBoxProps) => {
 	return (
-		<div>
-			<style type="text/css" dangerouslySetInnerHTML={{__html: 'input[type=checkbox]:not(:checked) + span { display: none; }'}} />
-			<label className="block relative flex cursor-pointer">
-				<input type="checkbox" className="appearance-none cursor-pointer border border-white h-4 w-4 rounded m-auto mr-2 outline-none" />
-				<span className="absolute text-xl leading-none border-l border-transparent">&times;</span>
+		<div className={className}>
+			<label className="block relative flex cursor-pointer text-gray-700 hover:text-black select-none">
+				<input type="checkbox" className="appearance-none cursor-pointer border border-gray-600 h-4 w-4 rounded m-auto mr-2 outline-none bg-no-repeat bg-center bg-gray-600 not-checked:bg-none" style={{backgroundImage: 'url("data:image/svg+xml,' + CheckIcon + '")'}} />
 				<span>{label}</span>
 			</label>
 			{/* helper ? */}
