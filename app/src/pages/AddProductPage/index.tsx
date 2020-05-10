@@ -6,6 +6,7 @@ import Page from '../../components/Page';
 import { TextBox, Button } from '../../components/Form';
 import TaggingField from '../../components/TaggingField';
 import SetPackaging from './SetPackaging';
+import PhotoList from '../../components/PhotoList';
 
 
 export default () => {
@@ -32,9 +33,7 @@ export default () => {
 				
 				<SetPackaging packaging={product.packaging || {}} onChange={packaging => setProduct(p => ({...p, packaging}))} />
 
-				<div>
-					photos
-				</div>
+				<PhotoList photos={product.photos || []} setPhotos={photos => setProduct(p => ({...p, photos}))} />
 
 				<Button type="submit" color="blue" className="m-2">Ajouter</Button>
 				<Button type="button" color="gray" className="m-2">Annuler</Button>
