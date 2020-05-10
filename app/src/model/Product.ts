@@ -1,13 +1,12 @@
 import Location from './Location';
-import Category from './Category';
 
 export default interface Product {
 
 	id: number
 	name: string
 	description: string
-	categories: Category[]
-	tags: []
+	category: string
+	tags: string[]
 	photos: string[]
 
 	locations: Location[]
@@ -17,11 +16,15 @@ export default interface Product {
 	brand: string // panzani
 }
 
-type Units = 'gramme' | 'kilogramme' | 'litre' | 'rouleau' | 'pièce';
-type UnitsRefProps = {
-	[k in Units]: (q: number) => string;
-};
-const UnitsRef: UnitsRefProps = {
+export enum PackagingUnit {
+	gramme = 'gramme',
+	kilogramme = 'kilogramme',
+	litre ='litre',
+	rouleau = 'rouleau',
+	pièce = 'pièce'
+}
+
+const UnitsRef: { [k in keyof typeof PackagingUnit]: (q: number) => string } = {
 	gramme: (q) => q + 'g',
 	kilogramme: (q) => q + 'kg',
 	litre: (q) => q + 'L',
@@ -29,9 +32,17 @@ const UnitsRef: UnitsRefProps = {
 	pièce: (q) => q + ' pièce' + (q > 1 ? 's' : '')
 };
 
+export enum PackagingType {
+	paquet = 'paquet',
+	sachet = 'sachet',
+	boite = 'boite',
+	brique = 'brique'
+	// '...'
+}
+
 export interface Packaging {
-	type: 'paquet' | 'sachet' | 'boite' | 'brique' // | '...'
-	unit: Units
+	type: keyof typeof PackagingType
+	unit: keyof typeof PackagingUnit
 	quantity: number
 	// X _packaging_ de _quantity_ d'_unit_ de _name_ (ex : [X] sachet de 3 kg de riz, [X] paquet de 6 rouleaux de PQ, etc.)
 }

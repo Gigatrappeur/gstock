@@ -1,12 +1,11 @@
 import Product from '../model/Product';
-import Category from '../model/Category';
 import Storage from '../model/Storage';
 
-export const categories: Category[] = [
-	{id:1, name:'épicerie'},
-	// {id:2, name:'fruits secs'},
-	{id:3, name:'crémerie'}
-];
+// export const categories: Category[] = [
+// 	{id:1, name:'épicerie'},
+// 	// {id:2, name:'fruits secs'},
+// 	{id:3, name:'crémerie'}
+// ];
 
 export const storages: Storage[] = [
 	{id: 1, name: 'Cuisine'},
@@ -18,8 +17,8 @@ export const products:Product[] = [
 		id: 1,
 		name: 'Cerneaux de noix',
 		brand: 'Sainte Lucis',
-		categories: [{id:1, name:'épicerie'}/*, {id:2, name:'fruits secs'}*/],
-		tags: [],
+		category: 'épicerie',
+		tags: ['fruits secs'],
 		description: '',
 		barcode: '123',
 		packaging: {
@@ -38,7 +37,7 @@ export const products:Product[] = [
 		id: 2,
 		name: 'Bouchée feuilletées',
 		brand: 'Maison Maribel',
-		categories: [{id:1, name:'épicerie'}],
+		category: 'épicerie',
 		tags: [],
 		description: '',
 		barcode: '456',
@@ -54,7 +53,7 @@ export const products:Product[] = [
 		id: 3,
 		name: 'Noix de coco râpée',
 		brand: 'Marque repère',
-		categories: [{id:1, name:'épicerie'}],
+		category: 'épicerie',
 		tags: [],
 		description: '',
 		barcode: '789',
@@ -75,7 +74,7 @@ export const products:Product[] = [
 		id: 9,
 		name: 'Oeuf',
 		brand: 'Plein air',
-		categories: [{id:3, name:'crémerie'}],
+		category: 'crémerie',
 		tags: [],
 		description: '',
 		barcode: '134',
@@ -95,7 +94,7 @@ export const products:Product[] = [
 		id: 11,
 		name: 'Beurre gastronomique demi-sel',
 		brand: 'Marque repère',
-		categories: [{id:3, name:'crémerie'}],
+		category: 'crémerie',
 		tags: [],
 		description: '',
 		barcode: '145',
@@ -115,7 +114,7 @@ export const products:Product[] = [
 		id: 12,
 		name: 'Lait demi-écrémé',
 		brand: 'Marque repère',
-		categories: [{id:3, name:'crémerie'}],
+		category: 'crémerie',
 		tags: [],
 		description: '',
 		barcode: '852',

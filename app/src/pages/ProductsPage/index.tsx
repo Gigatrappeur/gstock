@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 
 // jeux de données
-import { products, storages, categories } from '../../data';
+import { products, storages } from '../../data';
 import Product, { getReadablePackaging } from '../../model/Product';
 import { RouteComponentProps } from 'react-router';
 import ProductView from './ProductView';
@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
 import Page from '../../components/Page';
 import Filter from '../../resources/Filter';
 
-type ProductGroup = 'locations' | 'categories';
+type ProductGroup = 'locations';// | 'categories';
 
 export default ({match: {params: {produit, filter}}}: RouteComponentProps<{produit?: string, filter?: ProductGroup}>) => {
 	const [showFilter, setShowFilter] = useState(false);
@@ -60,7 +60,7 @@ interface Filter {
 
 
 const FilterView = ({id, group, products, currentId}: {id: number, group: ProductGroup, products: Product[], currentId?: string}) => {
-	const currentFilter: Filter = (group == 'locations' ? storages : categories).find(s => s.id == id)!;
+	const currentFilter: Filter = /*(group == 'locations' ? */storages/* : categories)*/.find(s => s.id == id)!;
 	return (
 		<li className="border-t border-gray-200">
 			<div className="text-sm text-gray-600 font-medium py-1 px-4">

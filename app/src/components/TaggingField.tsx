@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
-import { TextBox, BaseButton } from './Form';
+import { TextBox, BaseButton, Button } from './Form';
 import Cross from '../resources/Cross';
 
-export default ({label, helper, tags, setTags}: {label: string, helper?: string, tags?: string[], setTags?(tags: string[]): any}) => {
+interface TaggingFieldProps {
+	label: string
+	helper?: string
+	tags?: string[]
+	setTags?(tags: string[]): any
+
+	className?: string
+}
+
+export default ({label, helper, tags, setTags, className}: TaggingFieldProps) => {
 	const [currentTag, setCurrentTag] = useState<string>('');
 	
-	console.log(tags);
-
 	const submitNewTag = () => {
 		if (currentTag.length == 0) return;
 		setTags && setTags([...(tags || []).filter(t => t != currentTag), currentTag]);
@@ -21,11 +28,11 @@ export default ({label, helper, tags, setTags}: {label: string, helper?: string,
 	}
 
 	return (
-		<div>
+		<div className={className}>
 			{setTags
 				? <div className="flex mb-1">
 					<TextBox rootClassName="flex-1" label={label} helper={helper} value={currentTag} onChange={({target:{value}}) => setCurrentTag(value)} onKeyDown={onKeyUpHandler} />
-					<BaseButton className="font-bold py-2 px-4 text-gray-600" type="button" onClick={submitNewTag}>Ajouter</BaseButton>
+					<Button className="text-gray-600" type="button" onClick={submitNewTag}>Ajouter</Button>
 				</div>
 			: <label className={'block uppercase tracking-wide text-gray-700 text-xs font-bold'}>{label}</label>}
 

@@ -1,8 +1,31 @@
-@tailwind base;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-@tailwind components;
+.btn {
+	@apply font-bold;
+	@apply py-2;
+	@apply px-4;
+	@apply rounded;
+}
 
-@tailwind utilities;
+.btn-blue {
+	@apply btn;
+	@apply bg-blue-500;
+	@apply text-white;
+}
+.btn-blue:hover {
+	@apply bg-blue-700;
+}
+
+.btn-gray {
+	@apply btn;
+	@apply bg-gray-500;
+	@apply text-white;
+}
+.btn-gray:hover {
+	@apply bg-gray-700;
+}
 
 
 .not-checked\:bg-none:not(:checked) {

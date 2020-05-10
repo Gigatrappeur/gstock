@@ -33,7 +33,7 @@ const ProductViewData = ({id}: {id: number}): JSX.Element => {
 			<div className="text-gray-600">{p.brand}</div>
 			<div>{getReadablePackaging(p.packaging)}</div>
 			<div>{p.description}</div>
-			<div>Catégories : {p.categories.map(c => <span key={c.id}>{c.name}</span>)}</div>
+			<div>Catégory : {p.category}</div>
 			{/* {p.photos} */}
 			<div>{p.tags.map(t => <span key={t}>{t}</span>)}</div>
 

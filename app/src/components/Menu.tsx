@@ -1,7 +1,5 @@
-import React, { useState, Children } from 'react';
+import React, { useState } from 'react';
 import { Transition } from 'react-transition-group';
-import { NavLink } from 'react-router-dom';
-import BoxOpenSolid from '../resources/BoxOpenSolid';
 
 type MenuState = 'opened' | 'closed';
 

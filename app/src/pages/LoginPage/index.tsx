@@ -44,7 +44,7 @@ export default () => {
 					<NavLink to="/forgot-password" className="text-gray-700 hover:text-black ml-auto text-right">Mot de passe oublié ?</NavLink>
 				</div>
 				<div className="m-4">
-					<Button className="w-full">Connexion</Button>
+					<Button className="w-full" color="blue">Connexion</Button>
 				</div>
 			</form>
 		</div>
